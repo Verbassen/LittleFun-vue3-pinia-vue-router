@@ -9,4 +9,18 @@ export default [
   pluginJs.configs.recommended,
   ...pluginVue.configs["flat/essential"],
   eslintConfigPrettier,
+  {
+    languageOptions: {
+			globals: {
+				...globals.browser,
+				...globals.es2020,
+				...globals.node,
+			},
+			ecmaVersion: 2020,
+			parser: parserVue,
+			parserOptions: {
+				parser: tseslint.parser,
+			},
+		},
+	},
 ];

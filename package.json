@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "axios": "^1.7.6",
+    "element-plus": "^2.8.1",
     "pinia": "^2.2.2",
-    "vue": "^3.4.37"
+    "vue": "^3.4.37",
+    "vue-router": "^4.4.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
@@ -21,6 +23,9 @@
     "eslint-plugin-vue": "^9.27.0",
     "globals": "^15.9.0",
     "prettier": "^3.3.3",
+    "sass": "^1.77.8",
+    "unplugin-auto-import": "^0.18.2",
+    "unplugin-vue-components": "^0.27.4",
     "vite": "^5.4.1"
   }
 }

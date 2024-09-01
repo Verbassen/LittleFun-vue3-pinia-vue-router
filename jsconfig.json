@@ -1,0 +1,12 @@
+// An highlighted block
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+          "@/*": ["src/*"]
+        }
+    },
+    "exclude": [
+        "node_modules"
+    ]
+ }
