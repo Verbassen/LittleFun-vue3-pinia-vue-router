@@ -1,25 +1,49 @@
 <script setup>
 import { Search } from '@element-plus/icons-vue'
+import { useCategoryStore } from '@/stores/categoryStore'
+
+import { onMounted, onUnmounted } from 'vue'
+import { useScroll } from '@vueuse/core'
+import { ref } from 'vue'
+
+const categoryStore = useCategoryStore()
+
+//顶部吸附
+const isFixed = ref(false)
+onMounted(() => {
+  const { y } = useScroll(window)
+  // console.log(y)
+  const handleScroll = () => {
+    isFixed.value = y.value > 53 // 使用 y.value 获取当前滚动位置
+  }
+
+  window.addEventListener('scroll', handleScroll)
+
+  onUnmounted(() => {
+    window.removeEventListener('scroll', handleScroll)
+  })
+})
+
+let input = ref('')
 </script>
 
 <template>
   <header class="app-header">
-    <div class="container">
-      <h1 class="logo">
-        <RouterLink to="/">乐淘坊</RouterLink>
-      </h1>
-      <ul class="app-header-nav">
-        <li class="home">
-          <RouterLink to="/">首页</RouterLink>
-        </li>
-        <li><RouterLink to="/">居家</RouterLink></li>
-        <li><RouterLink to="/">美食</RouterLink></li>
-        <li><RouterLink to="/">服饰</RouterLink></li>
-      </ul>
-      <div class="search">
-        <el-input v-model="input" :prefix-icon="Search" style="width: 240px;" placeholder="搜一搜" clearable />
+    <div :class="{ 'fixed-header': isFixed }" ref="header">
+      <div class="container">
+        <h1 class="logo">
+          <RouterLink to="/">乐淘坊</RouterLink>
+        </h1>
+        <ul class="app-header-nav">
+          <li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
+            <RouterLink active-class="active" :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
+          </li>
+        </ul>
+        <div class="search">
+          <el-input v-model="input" :prefix-icon="Search" style="width: 240px" placeholder="搜一搜" clearable />
+        </div>
+        <!-- 头部购物车 -->
       </div>
-      <!-- 头部购物车 -->
     </div>
   </header>
 </template>
@@ -114,5 +138,14 @@ import { Search } from '@element-plus/icons-vue'
       }
     }
   }
+}
+
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: linear-gradient(to right, #ddfb99, #d8f0fa);
 }
 </style>

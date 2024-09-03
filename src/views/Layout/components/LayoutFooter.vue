@@ -151,6 +151,11 @@
           font-weight: bold;
           border-radius: 2px;
           background-color: $xtxColor;
+
+          &:hover {
+            color: $xtxColor;;
+            background-color: $btnhoverColor;
+          }
         }
       }
   
