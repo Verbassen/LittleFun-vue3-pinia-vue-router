@@ -3,7 +3,7 @@
     <div class="card-container">
       <el-row :gutter="10" type="flex" justify="center">
         <el-col v-for="item in newProducts" :key="item.id" :xs="12" :sm="12" :lg="6">
-          <RouterLink to="/">
+          <RouterLink :to="`/detail/${item.id}`">
             <el-card shadow="hover" class="product-card">
               <img v-img-lazy="item.picture" style="width: 100%" alt="" />
               <template #footer>

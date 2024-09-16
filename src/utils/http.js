@@ -1,14 +1,22 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
+import { useUserStore } from '@/stores/userStore'
+import router from '@/router'
 
 const httpInstance = axios.create({
   baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
-  timeout: 5000
+  timeout: 50000
 })
 
 // axios请求拦截器
 httpInstance.interceptors.request.use(
   config => {
+    // 从userStore中获取token
+    const userStore = useUserStore()
+    const token = userStore.userInfo.token
+    if(token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
     return config
   },
   e => Promise.reject(e)
@@ -20,29 +28,15 @@ httpInstance.interceptors.response.use(
     return response.data
   },
   error => {
-    //处理网络错误
-    let msg = ''
-    let status = error.response.status
-    switch (status) {
-      case 401:
-        msg = 'token过期'
-        break
-      case 403:
-        msg = '无权访问'
-        break
-      case 404:
-        msg = '请求地址错误'
-        break
-      case 500:
-        msg = '服务器出现问题'
-        break
-      default:
-        msg = '无网络'
-    }
+    const userStore = useUserStore()
     ElMessage({
-      type: 'error',
-      message: msg
+      type: 'warning',  
+      message: error.response.data.message
     })
+    if(error.response.status === 401) {
+      userStore.clearUserInfo()
+      router.push('/login')
+    }
     return Promise.reject(error)
   }
 )

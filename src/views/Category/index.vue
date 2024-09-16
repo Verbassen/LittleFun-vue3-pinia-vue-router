@@ -69,7 +69,7 @@ const { bannerList } = useBanner()
     color: #666;
     font-weight: normal;
     text-align: center;
-    line-height: 100px;
+    line-height: 80px;
   }
 
   .sub-list {

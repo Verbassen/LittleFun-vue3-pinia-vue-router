@@ -29,10 +29,9 @@ export function getHotAPI(){
 }
 
 // 获取商品列表
-export function getGoodsAPI(params){
+export function getGoodsAPI(){
     return httpInstance({
         url:'/home/goods',
         method:'get',
-        params
     })
 }

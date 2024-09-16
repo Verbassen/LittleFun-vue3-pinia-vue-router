@@ -1,7 +1,7 @@
 <script setup>
 import { Search } from '@element-plus/icons-vue'
 import { useCategoryStore } from '@/stores/categoryStore'
-
+import HeaderCart from './HeaderCart.vue'
 import { onMounted, onUnmounted } from 'vue'
 import { useScroll } from '@vueuse/core'
 import { ref } from 'vue'
@@ -43,6 +43,7 @@ let input = ref('')
           <el-input v-model="input" :prefix-icon="Search" style="width: 240px" placeholder="搜一搜" clearable />
         </div>
         <!-- 头部购物车 -->
+        <HeaderCart />
       </div>
     </div>
   </header>
